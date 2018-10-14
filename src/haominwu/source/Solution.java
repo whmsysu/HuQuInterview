@@ -22,7 +22,7 @@ public class Solution {
         boolean sectionHasInt = false;
         int sectionInteger = 0;
         long result = 0;
-        int[] base = {16777216, 65536, 256, 1};
+        int[] base = {24, 16, 8, 0};
         int baseIndex = 0;
         for(int i=0;i<s.length;i++){
             if (s[i]>='0' && s[i]<='9') {
@@ -46,7 +46,8 @@ public class Solution {
             		throw new Exception("Invalid Format");
             	}
                 hasSpace = false;
-                result += (long)sectionInteger * base[baseIndex];
+                result += (long)sectionInteger<<base[baseIndex];
+                System.out.println(result);
                 sectionInteger = 0;
                 baseIndex++;
                 if (baseIndex > 3) {
@@ -67,7 +68,7 @@ public class Solution {
             throw new Exception("Invalid Format");
         }
         
-        result += (long)sectionInteger * base[baseIndex];
+        result += (long)sectionInteger<<base[baseIndex];
         return result;    
     }     
 }
