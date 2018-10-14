@@ -1,4 +1,6 @@
-package haominwu.source;
+package haominwu.solution.solution;
+
+import haominwu.solution.exception.InvalidFormatException;
 
 /**
 Programming Question:
@@ -17,7 +19,7 @@ public class Solution {
 	 * @return integer transferred by ip address
 	 * @throws Exception invalid format 
 	 */
-	public static long ipToInteger(char[] s) throws Exception {
+	public static long ipToInteger(char[] s) throws InvalidFormatException {
         boolean hasSpace = false;
         boolean sectionHasInt = false;
         int sectionInteger = 0;
@@ -27,14 +29,14 @@ public class Solution {
         for(int i=0;i<s.length;i++){
             if (s[i]>='0' && s[i]<='9') {
             	if (hasSpace && sectionHasInt) {
-                    throw new Exception("Invalid Format");
+                    throw new InvalidFormatException("Invalid Format");
                 }
                 else {
                 	if (hasSpace) hasSpace = false;
                 	sectionHasInt = true;
                     sectionInteger = sectionInteger * 10 + s[i] - '0';
                     if (sectionInteger > 255) {
-                        throw new Exception("Invalid Format");
+                    	throw new InvalidFormatException("Invalid Format");
                     }
                 }
             }
@@ -43,28 +45,28 @@ public class Solution {
             }
             else if (s[i] == '.') {
             	if (!sectionHasInt) {
-            		throw new Exception("Invalid Format");
+            		throw new InvalidFormatException("Invalid Format");
             	}
                 hasSpace = false;
                 result += (long)sectionInteger<<base[baseIndex];
                 sectionInteger = 0;
                 baseIndex++;
                 if (baseIndex > 3) {
-                	throw new Exception("Invalid Format");
+                	throw new InvalidFormatException("Invalid Format");
                 }
                 sectionHasInt = false;
             }
             else {
-                throw new Exception("Invalid Format");
+            	throw new InvalidFormatException("Invalid Format");
             }
         }
         
         if (!sectionHasInt) {
-    		throw new Exception("Invalid Format");
+        	throw new InvalidFormatException("Invalid Format");
     	}
         
         if (baseIndex != 3) {
-            throw new Exception("Invalid Format");
+        	throw new InvalidFormatException("Invalid Format");
         }
         
         result += (long)sectionInteger<<base[baseIndex];
