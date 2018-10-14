@@ -81,6 +81,14 @@ public class SolutionTests {
 	}
 	
 	@Test
+	public void testIpToInt_invalidFormat_invalidChar_3() throws Exception {
+		//172.168.5.e throw invalid format exception 
+		char[] s = {'-','1','7','2','.','1','6','8','.','5','.','1'};
+		exception.expectMessage("Invalid Format");
+		Solution.ipToInteger(s);
+	}
+	
+	@Test
 	public void testIpToInt_invalidFormat_threeSections_1() throws Exception {
 		//172.168.5 throw invalid format exception 
 		char[] s = {'1','7','2','.','1','6','8','.','5'};
