@@ -34,6 +34,13 @@ public class SolutionTests {
 	}
 	
 	@Test
+	public void testIpToInt_correct_withSpace_2() throws Exception {
+		// 172.168.5.1=>2896692481L
+		char[] s = {' ','1','7','2','.','1','6','8','.','5','.','1'};
+		assertEquals(2896692481L, Solution.ipToInteger(s));
+	}
+	
+	@Test
 	public void testIpToInt_correct_withSpaceAtEnd() throws Exception {
 		//172.168.5.1 =>2896692481L
 		char[] s = {'1','7','2','.','1','6','8',' ','.','5',' ','.','1',' '};
@@ -97,5 +104,14 @@ public class SolutionTests {
 		exception.expectMessage("Invalid Format");
 		Solution.ipToInteger(s);
 	}
+	
+	@Test
+	public void testIpToInt_invalidFormat_fiveSections() throws Exception {
+		//172.168.5.1.0 throw invalid format exception
+		char[] s = {'1','7','2','.','1','6','8','.','5','.','1', '.', '0'};
+		exception.expectMessage("Invalid Format");
+		Solution.ipToInteger(s);
+	}
+
 	
 }

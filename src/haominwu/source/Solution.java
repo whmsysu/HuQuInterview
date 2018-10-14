@@ -26,11 +26,12 @@ public class Solution {
         int baseIndex = 0;
         for(int i=0;i<s.length;i++){
             if (s[i]>='0' && s[i]<='9') {
-            	sectionHasInt = true;
-                if (hasSpace) {
+            	if (hasSpace && sectionHasInt) {
                     throw new Exception("Invalid Format");
                 }
                 else {
+                	if (hasSpace) hasSpace = false;
+                	sectionHasInt = true;
                     sectionInteger = sectionInteger * 10 + s[i] - '0';
                     if (sectionInteger > 255) {
                         throw new Exception("Invalid Format");
@@ -48,6 +49,9 @@ public class Solution {
                 result += (long)sectionInteger * base[baseIndex];
                 sectionInteger = 0;
                 baseIndex++;
+                if (baseIndex > 3) {
+                	throw new Exception("Invalid Format");
+                }
                 sectionHasInt = false;
             }
             else {
