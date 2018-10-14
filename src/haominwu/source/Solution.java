@@ -47,7 +47,6 @@ public class Solution {
             	}
                 hasSpace = false;
                 result += (long)sectionInteger<<base[baseIndex];
-                System.out.println(result);
                 sectionInteger = 0;
                 baseIndex++;
                 if (baseIndex > 3) {
