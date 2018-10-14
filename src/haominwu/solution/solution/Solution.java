@@ -24,8 +24,8 @@ public class Solution {
         boolean sectionHasInt = false;
         int sectionInteger = 0;
         long result = 0;
-        int[] base = {24, 16, 8, 0};
-        int baseIndex = 0;
+        int[] shifts = {24, 16, 8, 0};
+        int shiftIndex = 0;
         for(int i=0;i<s.length;i++){
             if (s[i]>='0' && s[i]<='9') {
             	if (hasSpace && sectionHasInt) {
@@ -48,10 +48,10 @@ public class Solution {
             		throw new InvalidFormatException("Invalid Format");
             	}
                 hasSpace = false;
-                result += (long)sectionInteger<<base[baseIndex];
+                result += (long)sectionInteger<<shifts[shiftIndex];
                 sectionInteger = 0;
-                baseIndex++;
-                if (baseIndex > 3) {
+                shiftIndex++;
+                if (shiftIndex > 3) {
                 	throw new InvalidFormatException("Invalid Format");
                 }
                 sectionHasInt = false;
@@ -65,11 +65,11 @@ public class Solution {
         	throw new InvalidFormatException("Invalid Format");
     	}
         
-        if (baseIndex != 3) {
+        if (shiftIndex != 3) {
         	throw new InvalidFormatException("Invalid Format");
         }
         
-        result += (long)sectionInteger<<base[baseIndex];
+        result += (long)sectionInteger<<shifts[shiftIndex];
         return result;    
     }     
 }
