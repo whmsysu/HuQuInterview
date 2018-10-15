@@ -22,6 +22,13 @@ public class SolutionTests {
 	}
 	
 	@Test
+	public void testIpToInt_correct_3() throws InvalidFormatException {
+		//255.255.255.255=>4294967295L
+		char[] s = {'0','.','0', '.','0', '.', '0'};
+		assertEquals(0L, Solution.ipToInteger(s));
+	}
+	
+	@Test
 	public void testIpToInt_correct_withSpace() throws InvalidFormatException {
 		//172 .168.5.1=>2896692481L
 		char[] s = {'1','7','2',' ','.','1','6','8','.','5','.','1'};

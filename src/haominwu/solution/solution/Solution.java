@@ -25,19 +25,21 @@ public class Solution {
         int sectionInteger = 0;
         long result = 0;
         int[] shifts = {24, 16, 8, 0};
-        int shiftIndex = 0;
+        int sectionIndex = 0;
         for(int i=0;i<s.length;i++){
             if (s[i]>='0' && s[i]<='9') {
+            	//Detect a digit
             	if (hasSpace && sectionHasInt) {
+            		//Space between two digits
                     throw new InvalidFormatException("Invalid Format");
                 }
-                else {
-                	if (hasSpace) hasSpace = false;
-                	sectionHasInt = true;
-                    sectionInteger = sectionInteger * 10 + s[i] - '0';
-                    if (sectionInteger > 255) {
-                    	throw new InvalidFormatException("Invalid Format");
-                    }
+            	
+            	hasSpace = false;
+            	sectionHasInt = true;
+                sectionInteger = sectionInteger * 10 + s[i] - '0';
+                if (sectionInteger > 255) {
+                	// Integer in one ip address section is larger than 255
+                	throw new InvalidFormatException("Invalid Format");
                 }
             }
             else if (s[i] == ' ') {
@@ -45,13 +47,15 @@ public class Solution {
             }
             else if (s[i] == '.') {
             	if (!sectionHasInt) {
+            		//No integer in one ip address section
             		throw new InvalidFormatException("Invalid Format");
             	}
                 hasSpace = false;
-                result += (long)sectionInteger<<shifts[shiftIndex];
+                result += (long)sectionInteger<<shifts[sectionIndex];
                 sectionInteger = 0;
-                shiftIndex++;
-                if (shiftIndex > 3) {
+                sectionIndex++;
+                if (sectionIndex > 3) {
+                	// Input ip address has more than 4 sections
                 	throw new InvalidFormatException("Invalid Format");
                 }
                 sectionHasInt = false;
@@ -61,15 +65,17 @@ public class Solution {
             }
         }
         
+        // Handle the last section
         if (!sectionHasInt) {
         	throw new InvalidFormatException("Invalid Format");
     	}
         
-        if (shiftIndex != 3) {
+        if (sectionIndex != 3) {
+        	// Input ip address has less than 4 sections
         	throw new InvalidFormatException("Invalid Format");
         }
         
-        result += (long)sectionInteger<<shifts[shiftIndex];
+        result += (long)sectionInteger<<shifts[sectionIndex];
         return result;    
     }     
 }
