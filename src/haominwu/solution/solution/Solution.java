@@ -20,10 +20,13 @@ public class Solution {
 	 * @throws Exception invalid format 
 	 */
 	public static long ipToInteger(char[] s) throws InvalidFormatException {
-        boolean hasSpace = false;
+        //Indicate if the section has a space
+		boolean hasSpace = false;
+		//Indicate if the section has a digit
         boolean sectionHasInt = false;
         int sectionInteger = 0;
         long result = 0;
+        //Shift for each section
         int[] shifts = {24, 16, 8, 0};
         int sectionIndex = 0;
         for(int i=0;i<s.length;i++){
@@ -51,6 +54,7 @@ public class Solution {
             		throw new InvalidFormatException("Invalid Format");
             	}
                 hasSpace = false;
+                //Shift the integer in each section 
                 result += (long)sectionInteger<<shifts[sectionIndex];
                 sectionInteger = 0;
                 sectionIndex++;
